@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <title>Step 1</title>
 
@@ -9,6 +8,36 @@
 
     <!-- ✅ CSS -->
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Embedded styling for the calculator layout */
+        .calculator-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .calc-row:last-child {
+            margin-bottom: 0;
+            padding-top: 10px;
+            border-top: 1px dashed #dee2e6;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .calc-val {
+            color: #2c3e50;
+        }
+        .total-val {
+            color: #ff9900; /* EcoCash Orange accent */
+        }
+    </style>
 </head>
 
 <body>
@@ -22,17 +51,34 @@
     <h2 class="title">Loan Details</h2>
 
     <label>Amount ($100 - $1000)</label>
-    <input type="range" min="100" max="1000" id="amount" class="slider">
-    <p id="amountVal"></p>
+    <!-- Added oninput directly to the element to guarantee live updates -->
+    <input type="range" min="100" max="1000" step="10" value="200" id="amount" class="slider" oninput="updateCalculator()">
+    <p id="amountVal">$200</p>
 
     <label>Duration (14 - 120 days)</label>
-    <input type="range" min="14" max="120" id="duration" class="slider">
-    <p id="durationVal"></p>
-    <p id="repayment"></p>
+    <!-- Added oninput directly to the element to guarantee live updates -->
+    <input type="range" min="14" max="120" value="30" id="duration" class="slider" oninput="updateCalculator()">
+    <p id="durationVal">30 days</p>
+    
+    <!-- 🧮 LIVE LOAN CALCULATOR -->
+    <div class="calculator-box">
+        <div class="calc-row">
+            <span>Principal Amount:</span>
+            <span id="calcPrincipal" class="calc-val">$200.00</span>
+        </div>
+        <div class="calc-row">
+            <span>Interest Charged:</span>
+            <span id="calcInterest" class="calc-val">$10.00</span>
+        </div>
+        <div class="calc-row">
+            <span>Total Repayable:</span>
+            <span id="calcTotal" class="total-val">$210.00</span>
+        </div>
+    </div>
 
     <textarea id="reason" placeholder="Enter reason for loan (e.g. business, school fees)"></textarea>
 
-   <button onclick="nextStep1()">Next</button>
+    <button onclick="nextStep1()">Next</button>
 
 </div>
 
@@ -42,13 +88,51 @@
 <script src="script.js"></script>
 
 <script>
+// We declare this globally so the HTML elements can find and trigger it instantly
+function updateCalculator() {
+    const amountSlider = document.getElementById("amount");
+    const durationSlider = document.getElementById("duration");
+    
+    const amountVal = document.getElementById("amountVal");
+    const durationVal = document.getElementById("durationVal");
+    
+    const calcPrincipal = document.getElementById("calcPrincipal");
+    const calcInterest = document.getElementById("calcInterest");
+    const calcTotal = document.getElementById("calcTotal");
+    
+    // Safety check: make sure all elements are loaded in the DOM
+    if (!amountSlider || !durationSlider || !calcPrincipal || !calcInterest || !calcTotal) return;
+
+    // Pull current values fresh on every single slide movement
+    const principal = parseFloat(amountSlider.value);
+    const days = parseInt(durationSlider.value);
+    
+    // 0.5% interest fee per day (translates roughly to 15% monthly)
+    const DAILY_INTEREST_RATE = 0.005; 
+
+    // Update basic text labels directly under the track lines
+    amountVal.innerText = `$${principal}`;
+    durationVal.innerText = `${days} days`;
+    
+    // Dynamic math formula combining BOTH variables
+    const interestCost = principal * DAILY_INTEREST_RATE * days;
+    const totalPayable = principal + interestCost;
+    
+    // Push the fresh math states into the dynamic UI panel
+    calcPrincipal.innerText = `$${principal.toFixed(2)}`;
+    calcInterest.innerText = `$${interestCost.toFixed(2)}`;
+    calcTotal.innerText = `$${totalPayable.toFixed(2)}`;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.add("loaded");
+    // Run once on load to make sure fields match initial HTML layout defaults
+    updateCalculator();
 });
 </script>
 
 <script>
-    function showLoaderAndGo(url) {
+function showLoaderAndGo(url) {
     document.getElementById("pageLoader").style.display = "block";
     setTimeout(() => {
         window.location.href = url;
