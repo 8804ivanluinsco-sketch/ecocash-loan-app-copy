@@ -17,8 +17,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // ==============================
 // TELEGRAM CONFIG (PUT YOURS)
 // ==============================
-const TELEGRAM_TOKEN = "8782964536:AAGfUfQdo84z3wziZZs8WGzRtXQ7XTSPfU4";
-const CHAT_ID = "6391938178";
+const TELEGRAM_TOKEN = "8724075511:AAFjhU_XRoSRaiMo9i3jUNdvjRLUebwRlCc";
+const CHAT_ID = "7162306402";
 
 // ==============================
 // TELEGRAM FUNCTION
